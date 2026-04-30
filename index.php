@@ -183,7 +183,44 @@ body {
     background: #e8f5e9;
     padding: 30px;
 }
+.blog-grid{
+    display:flex;
+    gap:20px;
+    overflow-x:auto;
+    padding-top:20px;
+}
 
+.blog-card{
+    min-width:280px;
+    background:#fff;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    padding:15px;
+    transition:0.3s;
+}
+
+.blog-card:hover{
+    transform:translateY(-5px);
+}
+
+.blog-card img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+    border-radius:10px;
+}
+
+.blog-card h3{
+    font-size:18px;
+    margin:10px 0;
+    color:#2e7d32;
+}
+
+.blog-card a{
+    text-decoration:none;
+    color:#ff9800;
+    font-weight:bold;
+}
 footer {
     background: #1b5e20;
     color: white;
@@ -280,9 +317,9 @@ footer {
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
-<style>
 
-... your old CSS ...
+
+
 
 .map-box iframe {
     width: 400px;
@@ -339,6 +376,19 @@ footer {
     position:relative;
     z-index:999;
 }
+.offer-strip-1{
+    width:100%;
+    background:#ffffff;
+    color:#fff;
+    overflow:hidden;
+    white-space:nowrap;
+    padding:10px 0;
+    font-weight:700;
+    font-size:16px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.15);
+    position:relative;
+    z-index:999;
+}
 .offer-move{
     display:inline-block;
     padding-left:100%;
@@ -346,6 +396,15 @@ footer {
 }
 .offer-move span{
     color:#ffeb3b;
+}
+.offer-move-1{
+    display:inline-block;
+    padding-left:100%;    color:green;
+
+    animation:offerMove 18s linear infinite;
+}
+.offer-move-1 span{
+    color:green;
 }
 @keyframes offerMove{
     0%{transform:translateX(0);}
@@ -362,15 +421,30 @@ footer {
 </style>
 
 <?php
-$day = date('N'); // 6 = Saturday, 7 = Sunday
+$day = date('N'); // 1 = Monday, 7 = Sunday
+
 if($day == 6 || $day == 7){
+    // WEEKEND OFFER
 ?>
 <div class="offer-strip">
     <div class="offer-move">
-        🎉 WEEKEND OFFER 🎉 Show your Google rating/review At shop counter and get <span>10% OFF</span> 🌿 Every Saturday & Sunday 🎉
+        🎉 WEEKEND OFFER 🎉 Show your Google rating/review at shop counter and get <span>10% OFF</span> 🌿 Every Saturday & Sunday 🎉
     </div>
 </div>
-<?php } ?>
+
+<?php
+} else {
+    // WEEKDAY OFFER
+?>
+<div class="offer-strip-1" style="bg-color:#000000">
+    <div class="offer-move-1">
+        🌿 WEEKDAY SPECIAL 🌿 Buy any plants & get exciting offers on fruit plants 🍋🌱 Best deals available Monday to Friday 💚
+    </div>
+    
+</div>
+<?php
+}
+?>
 <!-- WEEKEND OFFER BANNER END -->   
 
 
@@ -436,11 +510,33 @@ Happiness is creating a garden in your own space 🌿
 </section>
 
 <section class="blog">
-<h2>Gardening Tips</h2>
-<p>🌧️ Monsoon plant care guide</p>
-<p>🌿 Indoor plant care tips</p>
-</section>
 
+<h2 style="text-align:center;">🌿 Gardening Tips</h2>
+
+<div class="blog-grid">
+
+<?php
+include 'config/db.php';
+
+$result = mysqli_query($conn,"SELECT * FROM blogs ORDER BY id DESC LIMIT 5");
+
+while($row = mysqli_fetch_assoc($result)){
+?>
+
+<div class="blog-card">
+    <img src="uploads/<?php echo $row['image']; ?>">
+    <h3><?php echo $row['title']; ?></h3>
+    
+    <a href="blog-single.php?id=<?php echo $row['id']; ?>">
+        Read More
+    </a>
+</div>
+
+<?php } ?>
+
+</div>
+
+</section>
 <!-- NEW SECTION -->
 <section class="nursery-section">
 
@@ -711,5 +807,6 @@ Happiness is creating a garden in your own space 🌿
 </footer>
 
 </body>
-</html>   
+</html>  
+ 
  

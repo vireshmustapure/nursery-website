@@ -72,6 +72,7 @@ style="width:300px; height:auto; border-radius:10px; object-fit:cover;">
         border-radius:6px;
     ">
         Add to Cart
+        
     </button>
 </form>
 

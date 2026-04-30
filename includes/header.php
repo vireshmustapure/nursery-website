@@ -30,7 +30,7 @@ if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
     <div style="display:flex; align-items:center; gap:30px;">
 
         <!-- CART -->
-        <a href="/nursery/pages/cart.php" style="
+        <a href="/pages/cart.php" style="
             color:white;
             text-decoration:none;
             font-size:18px;
